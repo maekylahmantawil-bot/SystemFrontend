@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>University Inbound & Outbound Logistics Tracking System</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<div id="loginPage" class="login-page">
+
+    <div class="login-container">
+
+        <div class="login-left">
+
+            <div class="login-logo">
+                <i class="fa-solid fa-truck-fast"></i>
+            </div>
+
+            <h1>University Logistics</h1>
+
+            <p>
+                Inbound & Outbound Logistics Tracking System
+            </p>
+
+            <div class="login-info">
+
+                <div>
+                    <i class="fa-solid fa-box"></i>
+                    <span>Track university supplies</span>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    <span>Monitor inbound and outbound movement</span>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Maintain movement history</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="login-right">
+
+            <div class="login-form">
+
+                <h2>Welcome Back!</h2>
+
+                <p class="login-subtitle">
+                    Sign in to access the logistics system.
+                </p>
+
+
+                <form id="loginForm">
+
+                    <label>Username</label>
+
+                    <div class="input-box">
+                        <i class="fa-solid fa-user"></i>
+
+                        <input
+                            type="text"
+                            id="username"
+                            placeholder="Enter your username"
+                            required
+                        >
+                    </div>
+
+
+                    <label>Password</label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                        <button type="button"
+                                class="show-password"
+                                onclick="togglePassword()">
+
+                            <i id="eyeIcon"
+                               class="fa-solid fa-eye"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="login-options">
+
+                        <label class="remember">
+                            <input type="checkbox">
+                            Remember me
+                        </label>
+
+                        <a href="#">Forgot Password?</a>
+
+                    </div>
+
+
+                    <button type="submit" class="login-button">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        Sign In
+                    </button>
+
+                    <p id="loginError" class="login-error"></p>
+
+                </form>
+
+
+                <div class="demo-account">
+
+                    <strong>Demo Account</strong>
+
+                    <p>
+                        Username: <b>admin</b>
+                    </p>
+
+                    <p>
+                        Password: <b>admin123</b>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN SYSTEM
+===================================================== -->
+
+<div id="systemPage" class="system-page hidden">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-icon">
+                <i class="fa-solid fa-truck-fast"></i>
+            </div>
+
+            <div class="logo-text">
+                <h2>University</h2>
+                <span>Logistics System</span>
+            </div>
+
+        </div>
+
+
+        <div class="menu-label">
+            MAIN MENU
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <button class="menu-item active"
+                    onclick="showPage('dashboard', this)">
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+                <span>Dashboard</span>
+
+            </button>
+
+
+            <button class="menu-item"
+                    onclick="showPage('inventory', this)">
+
+                <i class="fa-solid fa-boxes-stacked"></i>
+
+                <span>Inventory</span>
+
+            </button>
+
+
+            <button class="menu-item"
+                    onclick="showPage('inbound', this)">
+
+                <i class="fa-solid fa-arrow-down"></i>
+
+                <span>Inbound Logistics</span>
+
+            </button>
+
+
+            <button class="menu-item"
+                    onclick="showPage('outbound', this)">
+
+                <i class="fa-solid fa-arrow-up"></i>
+
+                <span>Outbound Logistics</span>
+
+            </button>
+
+
+            <button class="menu-item"
+                    onclick="showPage('movement', this)">
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+                <span>Movement History</span>
+
+            </button>
+
+
+            <button class="menu-item"
+                    onclick="showPage('reports', this)">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                <span>Reports</span>
+
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button class="menu-item">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>Settings</span>
+
+            </button>
+
+
+            <button class="menu-item logout"
+                    onclick="logout()">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>Logout</span>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div class="top-left">
+
+                <button class="mobile-menu"
+                        onclick="toggleSidebar()">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+
+                <div>
+
+                    <h1 id="pageTitle">
+                        Dashboard
+                    </h1>
+
+                    <p id="pageSubtitle">
+                        Overview of university logistics activities.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="top-right">
+
+                <button class="notification-button">
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+                <div class="user-info">
+
+                    <div class="avatar">
+                        AD
+                    </div>
+
+                    <div class="user-details">
+
+                        <strong>Administrator</strong>
+
+                        <span>Authorized User</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             DASHBOARD
+        ================================================= -->
+
+        <section id="dashboard"
+                 class="page active-page">
+
+
+            <div class="welcome-card">
+
+                <div>
+
+                    <span class="welcome-label">
+                        UNIVERSITY LOGISTICS
+                    </span>
+
+                    <h2>
+                        Inbound & Outbound Overview
+                    </h2>
+
+                    <p>
+                        Monitor the movement of university supplies,
+                        resources, and logistics transactions.
+                    </p>
+
+                </div>
+
+
+                <div class="welcome-icon">
+
+                    <i class="fa-solid fa-truck-fast"></i>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+
+                        <i class="fa-solid fa-boxes-stacked"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>Total Inventory</span>
+
+                        <h2>1,284</h2>
+
+                        <small>Recorded items</small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+
+                        <i class="fa-solid fa-arrow-down"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>Inbound</span>
+
+                        <h2>38</h2>
+
+                        <small>This month</small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>Outbound</span>
+
+                        <h2>24</h2>
+
+                        <small>This month</small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+
+                        <i class="fa-solid fa-truck"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>In Transit</span>
+
+                        <h2>12</h2>
+
+                        <small>Active movements</small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DASHBOARD CONTENT -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- RECENT TRANSACTIONS -->
+
+                <div class="panel large-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>Recent Logistics Transactions</h3>
+
+                            <p>
+                                Latest inbound and outbound activities
+                            </p>
+
+                        </div>
+
+                        <button class="text-button"
+                                onclick="showPage('movement')">
+
+                            View All
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Transaction ID</th>
+
+                                    <th>Item</th>
+
+                                    <th>Type</th>
+
+                                    <th>Location</th>
+
+                                    <th>Status</th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td>#LOG-1024</td>
+
+                                    <td>Bond Paper A4</td>
+
+                                    <td>
+                                        <span class="movement inbound">
+                                            Inbound
+                                        </span>
+                                    </td>
+
+                                    <td>Main Warehouse</td>
+
+                                    <td>
+                                        <span class="status delivered">
+                                            Delivered
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>#LOG-1023</td>
+
+                                    <td>Printer Ink</td>
+
+                                    <td>
+                                        <span class="movement outbound">
+                                            Outbound
+                                        </span>
+                                    </td>
+
+                                    <td>Admin Office</td>
+
+                                    <td>
+                                        <span class="status released">
+                                            Released
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>#LOG-1022</td>
+
+                                    <td>Office Chairs</td>
+
+                                    <td>
+                                        <span class="movement transfer">
+                                            Transfer
+                                        </span>
+                                    </td>
+
+                                    <td>Engineering Building</td>
+
+                                    <td>
+                                        <span class="status transit">
+                                            In Transit
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>#LOG-1021</td>
+
+                                    <td>Desktop Computer</td>
+
+                                    <td>
+                                        <span class="movement inbound">
+                                            Inbound
+                                        </span>
+                                    </td>
+
+                                    <td>IT Department</td>
+
+                                    <td>
+                                        <span class="status delivered">
+                                            Delivered
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>Quick Actions</h3>
+
+                            <p>
+                                Create a logistics transaction
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+                        <button onclick="openModal('inboundModal')">
+
+                            <div class="quick-icon green">
+                                <i class="fa-solid fa-arrow-down"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>Record Inbound</strong>
+
+                                <span>
+                                    Record incoming supplies
+                                </span>
+
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <button onclick="openModal('outboundModal')">
+
+                            <div class="quick-icon orange">
+                                <i class="fa-solid fa-arrow-up"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>Record Outbound</strong>
+
+                                <span>
+                                    Record outgoing supplies
+                                </span>
+
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <button onclick="showPage('inventory')">
+
+                            <div class="quick-icon blue">
+                                <i class="fa-solid fa-box"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>View Inventory</strong>
+
+                                <span>
+                                    Check available supplies
+                                </span>
+
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATUS OVERVIEW -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h3>Logistics Status</h3>
+
+                        <p>
+                            Current recorded transaction statuses
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="status-overview">
+
+                    <div class="status-box">
+
+                        <span class="status-dot preparing"></span>
+
+                        <div>
+
+                            <strong>Preparing</strong>
+
+                            <span>8 transactions</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-box">
+
+                        <span class="status-dot released-dot"></span>
+
+                        <div>
+
+                            <strong>Released</strong>
+
+                            <span>16 transactions</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-box">
+
+                        <span class="status-dot transit-dot"></span>
+
+                        <div>
+
+                            <strong>In Transit</strong>
+
+                            <span>12 transactions</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-box">
+
+                        <span class="status-dot delivered-dot"></span>
+
+                        <div>
+
+                            <strong>Delivered</strong>
+
+                            <span>86 transactions</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             INVENTORY
+        ================================================= -->
+
+        <section id="inventory" class="page">
+
+            <div class="page-actions">
+
+                <div>
+
+                    <h2>Inventory</h2>
+
+                    <p>
+                        Manage and monitor available university supplies.
+                    </p>
+
+                </div>
+
+                <button class="primary-button">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Supply
+
+                </button>
+
+            </div>
+
+
+            <div class="filter-bar">
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input type="text"
+                           placeholder="Search supplies...">
+
+                </div>
+
+
+                <select>
+
+                    <option>All Categories</option>
+
+                    <option>Office Supplies</option>
+
+                    <option>Equipment</option>
+
+                    <option>IT Supplies</option>
+
+                    <option>Furniture</option>
+
+                </select>
+
+
+                <select>
+
+                    <option>All Locations</option>
+
+                    <option>Main Warehouse</option>
+
+                    <option>Admin Office</option>
+
+                    <option>IT Department</option>
+
+                    <option>Engineering Building</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Item ID</th>
+
+                                <th>Item Name</th>
+
+                                <th>Category</th>
+
+                                <th>Quantity</th>
+
+                                <th>Recorded Location</th>
+
+                                <th>Status</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>INV-001</td>
+
+                                <td>Bond Paper A4</td>
+
+                                <td>Office Supplies</td>
+
+                                <td><strong>350</strong></td>
+
+                                <td>Main Warehouse</td>
+
+                                <td>
+                                    <span class="status available">
+                                        Available
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="icon-button">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>INV-002</td>
+
+                                <td>Printer Ink</td>
+
+                                <td>IT Supplies</td>
+
+                                <td><strong>45</strong></td>
+
+                                <td>IT Department</td>
+
+                                <td>
+                                    <span class="status available">
+                                        Available
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="icon-button">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>INV-003</td>
+
+                                <td>Office Chairs</td>
+
+                                <td>Furniture</td>
+
+                                <td><strong>28</strong></td>
+
+                                <td>Admin Office</td>
+
+                                <td>
+                                    <span class="status available">
+                                        Available
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="icon-button">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>INV-004</td>
+
+                                <td>Desktop Computer</td>
+
+                                <td>Equipment</td>
+
+                                <td><strong>12</strong></td>
+
+                                <td>IT Department</td>
+
+                                <td>
+                                    <span class="status low">
+                                        Low Stock
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="icon-button">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             INBOUND
+        ================================================= -->
+
+        <section id="inbound" class="page">
+
+            <div class="page-actions">
+
+                <div>
+
+                    <h2>Inbound Logistics</h2>
+
+                    <p>
+                        Record and monitor incoming university supplies.
+                    </p>
+
+                </div>
+
+                <button class="primary-button"
+                        onclick="openModal('inboundModal')">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Record Inbound
+
+                </button>
+
+            </div>
+
+
+            <div class="stats-mini-grid">
+
+                <div class="mini-card">
+
+                    <span>Today's Inbound</span>
+
+                    <strong>8</strong>
+
+                </div>
+
+
+                <div class="mini-card">
+
+                    <span>Pending</span>
+
+                    <strong>4</strong>
+
+                </div>
+
+
+                <div class="mini-card">
+
+                    <span>Received</span>
+
+                    <strong>32</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h3>Inbound Transactions</h3>
+
+                        <p>
+                            Incoming supply records
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Transaction ID</th>
+
+                                <th>Item</th>
+
+                                <th>Quantity</th>
+
+                                <th>Source</th>
+
+                                <th>Receiving Location</th>
+
+                                <th>Date</th>
+
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>#IN-00124</td>
+
+                                <td>Bond Paper A4</td>
+
+                                <td>100</td>
+
+                                <td>ABC Office Supplies</td>
+
+                                <td>Main Warehouse</td>
+
+                                <td>Sept. 29, 2026</td>
+
+                                <td>
+                                    <span class="status delivered">
+                                        Delivered
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>#IN-00123</td>
+
+                                <td>Printer Ink</td>
+
+                                <td>20</td>
+
+                                <td>XYZ Technologies</td>
+
+                                <td>IT Department</td>
+
+                                <td>Sept. 28, 2026</td>
+
+                                <td>
+                                    <span class="status transit">
+                                        In Transit
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             OUTBOUND
+        ================================================= -->
+
+        <section id="outbound" class="page">
+
+            <div class="page-actions">
+
+                <div>
+
+                    <h2>Outbound Logistics</h2>
+
+                    <p>
+                        Record and monitor supplies released from the university.
+                    </p>
+
+                </div>
+
+                <button class="primary-button"
+                        onclick="openModal('outboundModal')">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Record Outbound
+
+                </button>
+
+            </div>
+
+
+            <div class="stats-mini-grid">
+
+                <div class="mini-card">
+
+                    <span>Today's Outbound</span>
+
+                    <strong>6</strong>
+
+                </div>
+
+
+                <div class="mini-card">
+
+                    <span>Released</span>
+
+                    <strong>18</strong>
+
+                </div>
+
+
+                <div class="mini-card">
+
+                    <span>In Transit</span>
+
+                    <strong>12</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h3>Outbound Transactions</h3>
+
+                        <p>
+                            Released supply records
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Transaction ID</th>
+
+                                <th>Item</th>
+
+                                <th>Quantity</th>
+
+                                <th>Source</th>
+
+                                <th>Destination</th>
+
+                                <th>Recipient</th>
+
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>#OUT-00218</td>
+
+                                <td>Bond Paper A4</td>
+
+                                <td>50</td>
+
+                                <td>Main Warehouse</td>
+
+                                <td>Registrar's Office</td>
+
+                                <td>Maria Santos</td>
+
+                                <td>
+                                    <span class="status delivered">
+                                        Delivered
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>#OUT-00217</td>
+
+                                <td>Office Chairs</td>
+
+                                <td>10</td>
+
+                                <td>Main Warehouse</td>
+
+                                <td>Engineering Building</td>
+
+                                <td>John Cruz</td>
+
+                                <td>
+                                    <span class="status transit">
+                                        In Transit
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MOVEMENT HISTORY
+        ================================================= -->
+
+        <section id="movement" class="page">
+
+            <div class="page-actions">
+
+                <div>
+
+                    <h2>Movement History</h2>
+
+                    <p>
+                        View the recorded history and audit trail of logistics transactions.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="filter-bar">
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input type="text"
+                           placeholder="Search transaction...">
+
+                </div>
+
+
+                <select>
+
+                    <option>All Movement Types</option>
+
+                    <option>Inbound</option>
+
+                    <option>Outbound</option>
+
+                    <option>Transfer</option>
+
+                </select>
+
+
+                <select>
+
+                    <option>All Status</option>
+
+                    <option>Preparing</option>
+
+                    <option>Released</option>
+
+                    <option>In Transit</option>
+
+                    <option>Delivered</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Date & Time</th>
+
+                                <th>Transaction ID</th>
+
+                                <th>Item</th>
+
+                                <th>Movement</th>
+
+                                <th>Source</th>
+
+                                <th>Destination</th>
+
+                                <th>Status</th>
+
+                                <th>Recorded By</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>Sept. 29, 2026<br>10:32 AM</td>
+
+                                <td>#LOG-1024</td>
+
+                                <td>Bond Paper A4</td>
+
+                                <td>
+                                    <span class="movement inbound">
+                                        Inbound
+                                    </span>
+                                </td>
+
+                                <td>Supplier</td>
+
+                                <td>Main Warehouse</td>
+
+                                <td>
+                                    <span class="status delivered">
+                                        Delivered
+                                    </span>
+                                </td>
+
+                                <td>Administrator</td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>Sept. 29, 2026<br>09:15 AM</td>
+
+                                <td>#LOG-1023</td>
+
+                                <td>Printer Ink</td>
+
+                                <td>
+                                    <span class="movement outbound">
+                                        Outbound
+                                    </span>
+                                </td>
+
+                                <td>IT Department</td>
+
+                                <td>Admin Office</td>
+
+                                <td>
+                                    <span class="status released">
+                                        Released
+                                    </span>
+                                </td>
+
+                                <td>Administrator</td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>Sept. 28, 2026<br>03:40 PM</td>
+
+                                <td>#LOG-1022</td>
+
+                                <td>Office Chairs</td>
+
+                                <td>
+                                    <span class="movement transfer">
+                                        Transfer
+                                    </span>
+                                </td>
+
+                                <td>Main Warehouse</td>
+
+                                <td>Engineering Building</td>
+
+                                <td>
+                                    <span class="status transit">
+                                        In Transit
+                                    </span>
+                                </td>
+
+                                <td>Supply Officer</td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             REPORTS
+        ================================================= -->
+
+        <section id="reports" class="page">
+
+            <div class="page-actions">
+
+                <div>
+
+                    <h2>Reports</h2>
+
+                    <p>
+                        Generate logistics and inventory reports.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="report-grid">
+
+
+                <div class="report-card">
+
+                    <div class="report-icon blue">
+
+                        <i class="fa-solid fa-boxes-stacked"></i>
+
+                    </div>
+
+                    <h3>Inventory Report</h3>
+
+                    <p>
+                        View current recorded supplies and quantities.
+                    </p>
+
+                    <button>
+                        Generate Report
+                    </button>
+
+                </div>
+
+
+                <div class="report-card">
+
+                    <div class="report-icon green">
+
+                        <i class="fa-solid fa-arrow-down"></i>
+
+                    </div>
+
+                    <h3>Inbound Report</h3>
+
+                    <p>
+                        View incoming supply transactions.
+                    </p>
+
+                    <button>
+                        Generate Report
+                    </button>
+
+                </div>
+
+
+                <div class="report-card">
+
+                    <div class="report-icon orange">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                    </div>
+
+                    <h3>Outbound Report</h3>
+
+                    <p>
+                        View released supply transactions.
+                    </p>
+
+                    <button>
+                        Generate Report
+                    </button>
+
+                </div>
+
+
+                <div class="report-card">
+
+                    <div class="report-icon purple">
+
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+
+                    </div>
+
+                    <h3>Movement History</h3>
+
+                    <p>
+                        View complete item movement records.
+                    </p>
+
+                    <button>
+                        Generate Report
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     INBOUND MODAL
+===================================================== -->
+
+<div id="inboundModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>Record Inbound Supply</h2>
+
+                <p>
+                    Record an incoming university supply.
+                </p>
+
+            </div>
+
+            <button onclick="closeModal('inboundModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+
+        <form>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Item Name</label>
+
+                    <input type="text"
+                           placeholder="Enter item name">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Quantity</label>
+
+                    <input type="number"
+                           placeholder="Enter quantity">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Source</label>
+
+                    <input type="text"
+                           placeholder="Supplier / source">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Receiving Location</label>
+
+                    <select>
+
+                        <option>Main Warehouse</option>
+
+                        <option>Admin Office</option>
+
+                        <option>IT Department</option>
+
+                        <option>Other</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Receiver</label>
+
+                    <input type="text"
+                           placeholder="Name of receiver">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Date & Time</label>
+
+                    <input type="datetime-local">
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Purpose</label>
+
+                <textarea placeholder="Enter purpose"></textarea>
+
+            </div>
+
+
+            <div class="modal-buttons">
+
+                <button type="button"
+                        class="cancel-button"
+                        onclick="closeModal('inboundModal')">
+
+                    Cancel
+
+                </button>
+
+                <button type="button"
+                        class="primary-button"
+                        onclick="saveTransaction('Inbound')">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Save Inbound
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     OUTBOUND MODAL
+===================================================== -->
+
+<div id="outboundModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>Record Outbound Supply</h2>
+
+                <p>
+                    Record a supply released from the university.
+                </p>
+
+            </div>
+
+            <button onclick="closeModal('outboundModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+
+        <form>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Item Name</label>
+
+                    <input type="text"
+                           placeholder="Enter item name">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Quantity</label>
+
+                    <input type="number"
+                           placeholder="Enter quantity">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Source</label>
+
+                    <input type="text"
+                           placeholder="Current location">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Destination</label>
+
+                    <input type="text"
+                           placeholder="Destination">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Recipient</label>
+
+                    <input type="text"
+                           placeholder="Name of recipient">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Release Date & Time</label>
+
+                    <input type="datetime-local">
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Purpose</label>
+
+                <textarea placeholder="Enter purpose"></textarea>
+
+            </div>
+
+
+            <div class="modal-buttons">
+
+                <button type="button"
+                        class="cancel-button"
+                        onclick="closeModal('outboundModal')">
+
+                    Cancel
+
+                </button>
+
+                <button type="button"
+                        class="primary-button"
+                        onclick="saveTransaction('Outbound')">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Release Supply
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
